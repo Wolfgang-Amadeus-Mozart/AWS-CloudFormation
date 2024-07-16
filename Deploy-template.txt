@@ -1,0 +1,12 @@
+{
+    "Resources": {
+        "EC2I147G1": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "AvailabilityZone" : "sa-east-1",
+                "ImageId" : "ami-0a0dcf9c25127a692",
+                "InstanceType" : "t2.micro"
+            }
+        }
+    }
+}
