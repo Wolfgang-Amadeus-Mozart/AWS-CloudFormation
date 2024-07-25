@@ -1,0 +1,10 @@
+---
+Resources:
+    S3Bucket:
+        Type: AWS::S3::Bucket
+        DeletionPolicy: Retain #this parameter will make this bucket to be preserved in case of stack deletion
+#This templa was ran and than I noticed that cloud formation skipped the deletion of this resource when i tried to delete it
+        UpdateReplacePolicy: Retain
+#Same hapenned on Update
+#The options for deletion and update are the same: retain/snapshot/delete
+#In this example, I used "retain"

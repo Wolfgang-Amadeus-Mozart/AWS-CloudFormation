@@ -1,0 +1,62 @@
+---
+#Using mappings for chaing  EC2 instance type based on the enviroment we are in
+
+Parameters:
+  EnvironmentName:
+    Description: EnviromentName
+    Type: String
+    AllowedValues: [development, production]
+    ConstraintDescription: must be development or production
+
+
+Mappings:
+  AWSRegionArch2AMI: #Map Name
+    us-east-1: #First Level Key
+      HVM64: "ami-0427090fd1714168b" #second Level Keys
+      HVMG2: "ami-0582e4fe9b72a5fe1"
+    us-west-1:
+      HVM64: "ami-0bdb828fd58c52235"
+      HVMG2: "ami-08f3d892de259504d"
+    us-west-2:
+      HVM64: "ami-0b2f6494ff0b07a0e"
+      HVMG2: "ami-0dba2cb6798deb6d8"
+    eu-west-1:
+      HVM64: "ami-047bb4163c506cd98"
+      HVMG2: "ami-0a1d21f890ff20f61"
+    eu-central-1:
+      HVM64: "ami-0d527b8c289b4af7f"
+      HVMG2: "ami-04ba28a3c88bbff6a"
+    ap-southeast-1:
+      HVM64: "ami-0a9ce9fecc3d1daf8"
+      HVMG2: "ami-085925f297f89fce1"
+    ap-southeast-2:
+      HVM64: "ami-0e97cd0a9e499f26e"
+      HVMG2: "ami-00a208c7cdba991ea"
+    ap-northeast-1:
+      HVM64: "ami-094798b2343a9157d"
+      HVMG2: "ami-091d58c27e0d7c4d9"
+    ap-northeast-2:
+      HVM64: "ami-09c0a47809f3b6dd2"
+      HVMG2: "ami-06cd52961ce9f0d85"
+    sa-east-1:
+      HVM64: "ami-07b14488da8ea5bbf"
+      HVMG2: "ami-03cf127a"
+    ca-central-1:
+      HVM64: "ami-00c7d5f16fb3ee8e1"
+      HVMG2: "ami-085ccbab2c8e3db9d"
+  #Creating another first level key    
+  EnvironmentToInstanceType:
+      development:
+        instanceType: t2.micro
+      production:
+        instanceType: t2.small
+  
+  #We allowed the user to select only the enviroment, now I will develop the logic that will deploye the instance based on the enviroment select
+
+Resources:
+    Ec2Instance:
+        Type: AWS::EC2::Instance
+        Properties:
+            InstanceType: !FindInMap [EnvironmentToInstanceType, !Ref 'EnvironmentName', instanceType]
+            ImageId: !FindInMap  [AWSRegionArch2AMI, !Ref 'AWS::Region', HVM64] #AWS::Region it's a pseudo Parameter available in any template
+            #this one returns the region you are currently in

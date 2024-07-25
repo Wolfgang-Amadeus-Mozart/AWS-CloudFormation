@@ -1,0 +1,7 @@
+---
+# creating an s3 bucket
+Resources:
+  MyS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties: {}
+    #defining no properties will make the bucket to get a random name

@@ -1,0 +1,17 @@
+---
+Parameters:
+  InstanceType:
+    Description: EC2 parameter store test
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /ec2/InstanceType/t2micro
+
+  ImageId:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::id>
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2 #public parameter managed by aws
+
+Resources:
+  Ec2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceType
+      ImageId: !Ref ImageId
