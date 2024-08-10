@@ -1,0 +1,16 @@
+Parameters:
+  VpcName:
+    Description: EnviromentName
+    Type: String
+    Default: Cloudformation-VPC
+  
+Resources:
+  VPCCloudformation:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 192.168.0.0/16 #Defining the CIDR block
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+      Tags:
+       - Key: Name #Defining the VOC name
+         Value: !Ref VpcName #calling the parameter vpn name 
