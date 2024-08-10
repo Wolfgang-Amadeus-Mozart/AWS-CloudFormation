@@ -14,3 +14,6 @@ Outputs:
         Description: Region name the ec2 is being deployed
         Value: !Ref "AWS::Region" # "AWS::Region" is a pseudo parameter
         #We are outputting the region we are deploying this stack
+    Az:
+        Description: Az zone from the ec2 instance
+        Value: !GetAtt MyInstance.AvailabilityZone #using !GetAtt for retriving AZ infor from the instance
